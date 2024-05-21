@@ -20,7 +20,7 @@ const Page: FC<Props> = (props) => {
        vivas tus sueños "
           Keywords="Departamentos, Casas, Terrenos"
         />
-        <div className="flex h-[200vh] ">
+        <div className="flex h-[200vh]">
           <div className="1500px:w-[16%] w-1/5">
             <AdminSidebar />
           </div>

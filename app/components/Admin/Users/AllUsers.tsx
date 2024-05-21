@@ -134,9 +134,12 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         });
       });
   }
-
-  const handleDelete = () => {
-    console.log("fff");
+  const handleSubmit = async()=>{
+    await updateUserRole({email, role});
+  }
+  const handleDelete = async () => {
+    const id = userId;
+    await deleteUser(id);
   };
 
   return (
@@ -209,6 +212,8 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           >
             <DataGrid checkboxSelection rows={rows} columns={columns} />
           </Box>
+          
+          
           {open && (
             <Modal
               open={open}

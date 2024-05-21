@@ -7,10 +7,10 @@ import { FiEdit2 } from "react-icons/fi";
 import { useGetAllPropertiesQuery , useDeletePropertyMutation} from "@/redux/features/property/propertiesApi";
 import Loader from "../../Loader/Loader";
 import { format } from "timeago.js";
-
 import { toast } from "react-hot-toast";
 import { styles } from "@/app/styles/style";
 import Link from "next/link";
+
 type Props = {};
 
 const AllProperties = (props: Props) => {
@@ -37,7 +37,7 @@ const AllProperties = (props: Props) => {
       renderCell: (params: any) => {
         return (
           <>
-            <Link href={`/admin/edit-propertie${params.row.id}`} >
+            <Link href={`/admin/edit-propertie/${params.row.id}`} >
               <FiEdit2 className="dark:text-white text-black" size={20} />
             </Link>
           </>
@@ -167,9 +167,18 @@ const AllProperties = (props: Props) => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-0">
+              <Box className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 dark:text-white"
+              sx={{
+                width: 400,
+                bgcolor: 'background.',
+                border: '2px solid #000',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 2,
+              }}
+              >
                 <h1 className={`${styles.title}`}>
-                  Esta seguro que desea eliminar este Usuario ?
+                ¿Está seguro que desea eliminar esta propiedad?
                 </h1>
                 <div className="flex w-full items-center justify-between mb-6 mt-4">
                   <div

@@ -1,33 +1,55 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import PropertyInformation from "./PropertyInformation";
 import PropertyOption from "./PropertyOption";
 import PropertyData from "./PropertyData";
 import ContentProperty from "./ContentProperty";
 import PropertyPreview from "./PropertyPreview";
-import { useCreatePropertyMutation } from "@/redux/features/property/propertiesApi";
+import { useCreatePropertyMutation, useGetAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
-type Props = {};
+type Props = {
+    id:string;
+};
 
-const CreateProperty = (props: Props) => {
-  const [createProperty, { isLoading, isSuccess, error }] =
-    useCreatePropertyMutation();
+const EditProperty:FC<Props> = ({id}) => {
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Propiedad creada con exito");
-      redirect("admin/properties");
-    }
-    if (error) {
-      if ("data" in error) {
-        const errorMessage = error as any;
-        toast.error(errorMessage.data.message);
-      }
-    }
-  }, [isLoading, isSuccess, error]);
+    const {isLoading,data,refetch}= useGetAllPropertiesQuery({}, {refetchOnMountOrArgChange:true});
+    const editPropertyData = data && data.properties.find((i:any)=> i._id === id);
+    console.log(editPropertyData)
+//  useEffect(() => {
+//    if (isSuccess) {
+//      toast.success("Propiedad creada con exito");
+//      redirect("admin/properties");
+//    }
+//    if (error) {
+//      if ("data" in error) {
+//        const errorMessage = error as any;
+//       toast.error(errorMessage.data.message);
+//      }
+//    }
+//  }, [isLoading, isSuccess, error]);
 
   const [active, setActive] = useState(0);
+  useEffect(()=>{
+    if (editPropertyData) {
+        setPropertyInfo({
+            name:editPropertyData.name,
+            description:editPropertyData.description,
+            categories:editPropertyData.categories,
+            price:editPropertyData.price,
+            estimatedPrice:editPropertyData.estimatedPrice,
+            thumbnail:editPropertyData?.thumbnail?.url,
+            tags:editPropertyData.tags,
+            level:editPropertyData.level,
+            location:editPropertyData.location,
+
+        })
+        setBenefits(editPropertyData.benefits);
+        setPrerequisites(editPropertyData.prerequisites);
+        setPropertyContentData(editPropertyData.propertyData)
+    }
+  },[editPropertyData])
   const [propertyInfo, setPropertyInfo] = useState({
     name: "",
     description: "",
@@ -103,11 +125,7 @@ const CreateProperty = (props: Props) => {
   
 
   const handlePropertyCreate = async (e: any) => {
-    console.log(propertyData)
     const data = propertyData;
-    if (!isLoading) {
-      await createProperty(data); 
-    }
 
   };
 
@@ -157,4 +175,4 @@ const CreateProperty = (props: Props) => {
   );
 };
 
-export default CreateProperty;
+export default EditProperty;

@@ -16,6 +16,7 @@ const PropertyPreview: FC<Props> = ({
   setActive,
   active,
 }) => {
+  console.log(propertyData)
   const discountPercentenge =
     ((propertyData?.estimatedPrice - propertyData?.price) /
       propertyData?.estimatedPrice) *

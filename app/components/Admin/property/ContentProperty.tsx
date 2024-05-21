@@ -41,7 +41,13 @@ const ContentProperty: FC<Props> = ({
       }));
       setPropertyContentData((prevData: any[]) => {
         const updatedData = [...prevData];
-        updatedData[index].images = imageUrls;
+
+        updatedData[index]={
+          ...updatedData[index],
+          images:updatedData[index].images
+          ? updatedData[index].images.concat(imageUrls)
+          : imageUrls
+        }
         return updatedData;
       });
     }
@@ -70,7 +76,13 @@ const ContentProperty: FC<Props> = ({
 
     setPropertyContentData((prevData: any) => {
       const updatedData = [...prevData];
-      updatedData[index].images = imageUrls;
+
+      updatedData[index] = {
+          ...updatedData[index],
+          images: updatedData[index].images
+            ? updatedData[index].images.concat(imageUrls)
+            : imageUrls
+        };
       return updatedData;
     });
   };
@@ -203,6 +215,7 @@ const ContentProperty: FC<Props> = ({
                       type="file"
                       accept="image/*"
                       className="hidden"
+                      multiple
                       id={`images-${index}`}
                       onChange={(e) => handleImagesUpload(index, e)}
                     />

@@ -15,6 +15,7 @@
     "@mui/material": "^5.15.9",
     "@mui/x-data-grid": "^7.0.0",
     "@reduxjs/toolkit": "^2.1.0",
+    "axios": "^1.7.1",
     "eslint-plugin-react-hooks": "^5.0.0-canary-47beb96cc-20240222",
     "formik": "^2.4.5",
     "next": "14.1.0",
