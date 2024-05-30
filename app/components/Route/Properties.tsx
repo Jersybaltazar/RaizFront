@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useGetUserAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
+import { useGetUsersAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
 import PropertieCard from "../Propertie/PropertieCard";
 
 type Props = {};
 
 const Properties = (props: Props) => {
-  const { data, isLoading } = useGetUserAllPropertiesQuery({});
+  const { data, isLoading } = useGetUsersAllPropertiesQuery({});
   const [properties, setProperties] = useState<any[]>([]);
 
   useEffect(() => {

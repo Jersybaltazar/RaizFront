@@ -5,51 +5,56 @@ import PropertyOption from "./PropertyOption";
 import PropertyData from "./PropertyData";
 import ContentProperty from "./ContentProperty";
 import PropertyPreview from "./PropertyPreview";
-import { useCreatePropertyMutation, useGetAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
+import {useGetAllPropertiesQuery, useEditPropertyMutation} from "../../../../redux/features/property/propertiesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
+
 type Props = {
-    id:string;
+  id: string;
 };
 
-const EditProperty:FC<Props> = ({id}) => {
+const EditProperty:FC<Props> = ({id }) => {
+    const [editProperty,{isSuccess, error}] = useEditPropertyMutation();
+  const { data, refetch } = useGetAllPropertiesQuery(
+    {},
+    { refetchOnMountOrArgChange: true }
+  );
+  const editPropertyData = data && data.properties.find((i: any) => i._id === id);
 
-    const {isLoading,data,refetch}= useGetAllPropertiesQuery({}, {refetchOnMountOrArgChange:true});
-    const editPropertyData = data && data.properties.find((i:any)=> i._id === id);
-    console.log(editPropertyData)
-//  useEffect(() => {
-//    if (isSuccess) {
-//      toast.success("Propiedad creada con exito");
-//      redirect("admin/properties");
-//    }
-//    if (error) {
-//      if ("data" in error) {
-//        const errorMessage = error as any;
-//       toast.error(errorMessage.data.message);
-//      }
-//    }
-//  }, [isLoading, isSuccess, error]);
+    useEffect(() => {
+    if (isSuccess) {
+        toast.success("Propiedad actualizada con exito");
+        redirect("admin/properties");
+      }
+      if (error) {
+        if ("data" in error) {
+          const errorMessage = error as any;
+         toast.error(errorMessage.data.message);
+        }
+      }
+    }, [ isSuccess, error]);
 
   const [active, setActive] = useState(0);
-  useEffect(()=>{
-    if (editPropertyData) {
-        setPropertyInfo({
-            name:editPropertyData.name,
-            description:editPropertyData.description,
-            categories:editPropertyData.categories,
-            price:editPropertyData.price,
-            estimatedPrice:editPropertyData.estimatedPrice,
-            thumbnail:editPropertyData?.thumbnail?.url,
-            tags:editPropertyData.tags,
-            level:editPropertyData.level,
-            location:editPropertyData.location,
 
-        })
-        setBenefits(editPropertyData.benefits);
-        setPrerequisites(editPropertyData.prerequisites);
-        setPropertyContentData(editPropertyData.propertyData)
+  useEffect(() => {
+    if (editPropertyData) {
+      setPropertyInfo({
+        name: editPropertyData.name,
+        description: editPropertyData.description,
+        categories: editPropertyData.categories,
+        price: editPropertyData.price,
+        estimatedPrice: editPropertyData.estimatedPrice,
+        thumbnail: editPropertyData?.thumbnail?.url,
+        tags: editPropertyData.tags,
+        level: editPropertyData.level,
+        location: editPropertyData.location,
+      });
+      setBenefits(editPropertyData.benefits);
+      setPrerequisites(editPropertyData.prerequisites);
+      setPropertyContentData(editPropertyData.propertyData);
     }
-  },[editPropertyData])
+  }, [editPropertyData]);
+
   const [propertyInfo, setPropertyInfo] = useState({
     name: "",
     description: "",
@@ -60,14 +65,13 @@ const EditProperty:FC<Props> = ({id}) => {
     tags: "",
     level: "",
     location: "", //cambiar a location
-    
   });
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
   const [propertyContentData, setPropertyContentData] = useState([
-    { 
-      images:"",
-      videoUrl: "",//SE TOMA UBI EN EL FORM COMO UBICACION
+    {
+      images: "",
+      videoUrl: "", //SE TOMA UBI EN EL FORM COMO UBICACION
       bedrooms: "",
       bathrooms: "",
       size: "",
@@ -75,10 +79,12 @@ const EditProperty:FC<Props> = ({id}) => {
       description: "",
       videoSection: "Grupo Multimedia",
       videoLength: "",
-      virtualTour: "", //remplasa sugerencias 
+      virtualTour: "", //remplasa sugerencias
     },
   ]);
   const [propertyData, setPropertyData] = useState({});
+
+  console.log(propertyData)
 
   const handleSubmit = async () => {
     //Formato de array  de beneficios
@@ -122,11 +128,10 @@ const EditProperty:FC<Props> = ({id}) => {
     };
     setPropertyData(data);
   };
-  
 
   const handlePropertyCreate = async (e: any) => {
     const data = propertyData;
-
+    await editPropertyData({id:editPropertyData?._id,data});
   };
 
   return (
@@ -165,6 +170,7 @@ const EditProperty:FC<Props> = ({id}) => {
             setActive={setActive}
             propertyData={propertyData}
             handlePropertyCreate={handlePropertyCreate}
+            isEdit={true}
           />
         )}
       </div>

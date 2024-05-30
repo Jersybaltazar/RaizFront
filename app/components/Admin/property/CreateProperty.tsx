@@ -17,7 +17,7 @@ const CreateProperty = (props: Props) => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Propiedad creada con exito");
-      redirect("admin/properties");
+      redirect("/admin/properties");
     }
     if (error) {
       if ("data" in error) {
@@ -31,15 +31,15 @@ const CreateProperty = (props: Props) => {
   const [propertyInfo, setPropertyInfo] = useState({
     name: "",
     description: "",
-    categories: "",
     price: "",
     estimatedPrice: "",
-    thumbnail: "",
     tags: "",
-    level: "",
+    categories: "",
     location: "", //cambiar a location
-    
+    level: "",
+    thumbnail: "",
   });
+  console.log(propertyInfo)
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
   const [propertyContentData, setPropertyContentData] = useState([
@@ -96,7 +96,7 @@ const CreateProperty = (props: Props) => {
       totalVideos: propertyContentData.length,
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
-      propertyContent: formattedPropertyContentData,
+      propertyData: formattedPropertyContentData,
     };
     setPropertyData(data);
   };

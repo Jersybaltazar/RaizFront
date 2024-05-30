@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { FC } from "react";
 import Image from "next/image";
 import { AiOutlineUnorderedList } from "react-icons/ai";
+import Ratings from "@/app/utils/Ratings";
 //import {Ratings} from "@/app/utils/Ratings.tsx"
 
 type Props = {
@@ -30,7 +31,7 @@ const PropertieCard: FC<Props> = ({ item, isProfile }) => {
           {item.name}
         </h1>
         <div className="w-full flex items-center justify-between pt-2">
-
+          <Ratings rating={item.ratings}/>
           <h5 className={`text-black dark:text-[#fff] ${
             isProfile && "hidden 800px:inline"
           }`} >

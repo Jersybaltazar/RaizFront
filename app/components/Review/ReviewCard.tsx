@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import Ratings from "@/app/utils/Ratings";
 type Props = {
-  item:any;
+  item: any;
 };
 
 const ReviewCard = (props: Props) => {
@@ -24,7 +25,7 @@ const ReviewCard = (props: Props) => {
               {props.item.profession}
             </h6>
           </div>
-
+          <Ratings rating={props.item.ratings} />
         </div>
         {/*for mobile */}
         <div className="800px:hidden justify-between w-full flex flex-col">
@@ -36,11 +37,11 @@ const ReviewCard = (props: Props) => {
               {props.item.profession}
             </h6>
           </div>
-
+          <Ratings rating={props.item.ratings} />
         </div>
       </div>
       <p className="pt-2 px-2 font-Poppins text-black dark:text-white">
-            {props.item.comment }
+        {props.item.comment}
       </p>
     </div>
   );

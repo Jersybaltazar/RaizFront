@@ -102,11 +102,7 @@ const ContentProperty: FC<Props> = ({
     });
   };
 
-  const handleRemoveLink = (index: number, linkIndex: number) => {
-    const updatedData = [...propertyContentData];
-    updatedData[index].links.splice(linkIndex, 1);
-    setPropertyContentData(updatedData);
-  };
+ 
 
   const prevButton = () => {
     setActive(active - 1);
@@ -125,8 +121,7 @@ const ContentProperty: FC<Props> = ({
       lastItem.size !== "";
 
     // Verificar si hay al menos una imagen
-    const hasImages = lastItem.images && lastItem.images.length > 0;
-
+    
     if (!isSectionValid) {
       toast.error(
         "La sección no puede estar vacía. Por favor, complete todos los campos ."

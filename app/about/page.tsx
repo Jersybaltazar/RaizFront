@@ -4,6 +4,10 @@ import Image from "next/image";
 import Heading from "../utils/Heading";
 import Header from "../components/Header";
 import Footer from "../utils/Footer";
+import Reviews from "../components/Route/Reviews";
+import { styles } from "@/app/styles/style";
+
+import Properties from "../components/Route/Properties";
 
 const textStyle: React.CSSProperties = {
   padding: "20px",
@@ -11,21 +15,24 @@ const textStyle: React.CSSProperties = {
 };
 
 const cardContainerStyle: React.CSSProperties = {
-  perspective: "1000px",
+  perspective: "1500px", 
   margin: "1rem",
-  display: "flex", 
-  justifyContent: "space-around", 
+  display: "flex",
+  justifyContent: "space-around",
+  flexWrap: "wrap",
 };
 
 const cardStyles: React.CSSProperties = {
-  width: "300px",
-  height: "300px",
+  width: "100%",
+  maxWidth: "320px", 
+  height: "400px", 
   position: "relative",
   borderRadius: "20px",
   textAlign: "center",
-  transition: "transform 2s",
+  transition: "transform 1s", 
   transformStyle: "preserve-3d",
   boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+  marginBottom: "1rem",
 };
 
 const cardContentStyle: React.CSSProperties = {
@@ -47,13 +54,14 @@ const cardFrontStyle: React.CSSProperties = {
 
 const cardBackStyle: React.CSSProperties = {
   ...cardContentStyle,
-  backgroundColor: "#333",
+  backgroundColor: "#ab0303",
   color: "#b7c9e5",
   transform: "rotateY(180deg)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
 };
+
 const imageContainerStyle: React.CSSProperties = {
   borderRadius: "20px",
   overflow: "hidden",
@@ -79,7 +87,7 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ index, imageSrc, text }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const overlayText = ["¿Por qué?", "¿Cómo?", "¿Qué hacemos?"][index];
+  // const overlayText = ["¿Por qué?", "¿Cómo?", "¿Qué hacemos?"][index];
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -99,7 +107,7 @@ const Card: FC<CardProps> = ({ index, imageSrc, text }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div style={cardFrontStyle}>
-        <div style={overlayTextStyle}>{overlayText}</div>
+        {/* <div style={overlayTextStyle}>{overlayText}</div> */}
         <Image
           style={{ ...imageContainerStyle }}
           src={imageSrc}
@@ -115,9 +123,7 @@ const Card: FC<CardProps> = ({ index, imageSrc, text }) => {
   );
 };
 
-interface Props {}
-
-const Page: FC<Props> = (props) => {
+const Page: FC = () => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login");
@@ -136,86 +142,36 @@ const Page: FC<Props> = (props) => {
         setRoute={setRoute}
         route={route}
       />
+      <Reviews />
+
+      <Properties />
+      {/* <Cont /> */}
 
       <div style={{ padding: "2rem", textAlign: "center" }}>
-        <h2 style={{ margin: "0 0 2rem", color: "white" }}>
-          NUESTROS PROPÓSITOS
-        </h2>
+        <h3 className={`${styles.title} 800px:!text-[40px]`}>
+          <span className="text-gradient">NUESTRO PROPOSITO </span>
+          {""}
+        </h3>
         <div style={cardContainerStyle}>
           <Card
             index={0}
-            imageSrc="/assets/about.jpeg"
-            text="Grupo Raíz se compromete con el progreso de Huánuco, impulsando
-                proyectos de habilitación urbana que mejoran la calidad de vida
-                y profesionalizan el mercado inmobiliario
-              "
+            imageSrc="/assets/porque.png"
+            text="Grupo Raíz se compromete con el progreso de Huánuco, impulsando proyectos de habilitación urbana que mejoran la calidad de vida y profesionalizan el mercado inmobiliario"
           />
           <Card
             index={1}
-            imageSrc="/assets/image.jpg"
-            text="Implementamos proyectos de habilitación urbana con un equipo ético
-              y calificado, asegurando la calidad y sostenibilidad de cada
-              desarrollo."
+            imageSrc="/assets/como.png"
+            text="Implementamos proyectos de habilitación urbana con un equipo ético y calificado, asegurando la calidad y sostenibilidad de cada desarrollo."
           />
           <Card
             index={2}
-            imageSrc="/assets/about3.jpeg"
-            text=" Realizamos la transformación y urbanización de terrenos, creando
-              comunidades planeadas y accesibles en Huánuco, con todos los
-              servicios necesarios para el crecimiento sostenible"
+            imageSrc="/assets/hacemos.png"
+            text=" Realizamos la transformación y urbanización de terrenos, creando comunidades planeadas y accesibles en Huánuco, con todos los servicios necesarios para el crecimiento sostenible"
           />
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          height: "calc(100vh - 4rem)",
-          margin: "90px",
-        }}
-      >
-        <div style={{ flex: 1, position: "relative", height: "100%" }}>
-          <Image
-            style={{ ...imageContainerStyle }}
-            src="/assets/image.jpg"
-            alt="Cityscape"
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          />
-        </div>
-        <div
-          style={{
-            flex: 1,
-            padding: "2rem",
-            backgroundColor: "rgba(255, 255, 255, 0.85)",
-            maxHeight: "600px",
-            margin: "auto",
-            borderRadius: "10px",
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-            marginLeft: "-50px",
-            zIndex: 2,
-            transition: "box-shadow 0.3s ease",
-            cursor: "pointer",
-            
-          }}
-        >
-          <p>
-            Grupo Raíz fue fundada en el año 000 por xxx con el objetivo de
-            proporcionar servicios inmobiliarios de alta calidad en la región.
-            Comenzamos como una pequeña agencia local en la ciudad de Huánuco y
-            Arequipa, Perú, enfocada en brindar un servicio personalizado y
-            centrado en las necesidades individuales de cada cliente. A lo largo
-            de los años, hemos crecido y nos hemos consolidado como una de las
-            principales empresas inmobiliarias de la zona, gracias a nuestro
-            compromiso con la excelencia, la integridad y la satisfacción del
-            cliente, ofreciendo un servicio profesional y confiable que los
-            acompaña en cada paso del proceso de compra o venta de propiedades.
-          </p>
-        </div>
-      </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

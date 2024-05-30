@@ -3,11 +3,13 @@ import Ratings from "@/app/utils/Ratings";
 import React, { FC } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
+
 type Props = {
   active: number;
   setActive: (active: number) => void;
   propertyData: any;
   handlePropertyCreate: any;
+  isEdit?:boolean;
 };
 
 const PropertyPreview: FC<Props> = ({
@@ -15,6 +17,7 @@ const PropertyPreview: FC<Props> = ({
   handlePropertyCreate,
   setActive,
   active,
+  isEdit
 }) => {
   console.log(propertyData)
   const discountPercentenge =
@@ -104,7 +107,9 @@ const createProperty = () =>{
         </div>
         <div className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
         onClick={()=>createProperty()}>
-            Crear
+            {
+              isEdit ? 'Actualizar Propiedad':'Crear'
+            }
         </div>
 
       </div>

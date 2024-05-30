@@ -34,6 +34,8 @@ const Hero: FC<Props> = (props) => {
   }, [data]);
 
   useEffect(() => {
+    if (!originalText) return;
+  
     let index = 0;
     const interval = setInterval(() => {
       if (index <= originalText.length) {
@@ -43,6 +45,7 @@ const Hero: FC<Props> = (props) => {
         index = 0;
       }
     }, 150);
+  
     return () => clearInterval(interval);
   }, [originalText]);
   return (

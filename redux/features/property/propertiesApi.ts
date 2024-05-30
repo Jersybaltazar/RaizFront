@@ -12,7 +12,7 @@ export const propertyApi = apiSlice.injectEndpoints({
     }),
     getAllProperties: builder.query({
       query: () => ({
-        url: "getProperties",
+        url: "get-properties",
         method: "GET",
         credentials: "include" as const,
       }),
@@ -24,9 +24,17 @@ export const propertyApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
-    getUserAllProperties: builder.query({
+    editProperty: builder.mutation({
+      query: ({id,data}) => ({
+        url: `editProperty/${id}`,
+        method: "PUT",
+        body:data,
+        credentials: "include" as const,
+      }), 
+    }),
+    getUsersAllProperties: builder.query({
       query: () => ({
-        url: "get-properties",
+        url: "getProperties",
         method: "GET",
         credentials: "include" as const,
       }),
@@ -43,8 +51,9 @@ export const propertyApi = apiSlice.injectEndpoints({
 
 export const {
   useCreatePropertyMutation,
-  useGetUserAllPropertiesQuery,
   useGetAllPropertiesQuery,
   useDeletePropertyMutation,
-  useGetPropertieDetailsQuery
+  useEditPropertyMutation,
+  useGetUsersAllPropertiesQuery,
+  useGetPropertieDetailsQuery,
 } = propertyApi;

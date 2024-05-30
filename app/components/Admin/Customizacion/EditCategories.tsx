@@ -26,7 +26,7 @@ const EditCategories = (props: Props) => {
     }
     if (layoutSuccess) {
       refetch();
-      toast.success("Categories updated successfully");
+      toast.success("Categoria actualizada con éxito");
     }
     if (error) {
       if ("data" in error) {

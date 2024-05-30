@@ -160,10 +160,15 @@ const PropertyInformation: FC<Props> = ({
             <label className={`${styles.label} w-[50%]`}>
               Categorias de la Propiedad
             </label>
-            <select name="" id="" className={`${styles.input}`}value={propertyInfo.category}
-            onChange={(e:any)=>
-              setPropertyInfo({...propertyInfo, Category: e.target.value})
-            } >
+            <select
+              name=""
+              id=""
+              className={`${styles.input}`}
+              value={propertyInfo.categories}
+              onChange={(e: any) =>
+                setPropertyInfo({ ...propertyInfo, categories:e.target.value })
+              }
+            >
               <option value="">Selecciona Categoria</option>
               {categories.map((item: any) => (
                 <option value={item._id} key={item._id}>

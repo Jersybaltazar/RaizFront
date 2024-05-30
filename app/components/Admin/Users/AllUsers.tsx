@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Button, MenuItem, Modal, Select, TextField } from "@mui/material";
 import { AiOutlineDelete, AiOutlineMail } from "react-icons/ai";
 import { useTheme } from "next-themes";
 import Loader from "../../Loader/Loader";
@@ -134,9 +134,9 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         });
       });
   }
-  const handleSubmit = async()=>{
-    await updateUserRole({email, role});
-  }
+  const handleSubmit = async () => {
+    await updateUserRole({ id: email, role });
+  };
   const handleDelete = async () => {
     const id = userId;
     await deleteUser(id);
@@ -154,7 +154,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                 className={`${styles.button} !w-[200px] dark:bg-[#57c7a3] !h-[35px] dark:border dark:border-[#ffffff6c]`}
                 onClick={() => setActive(!active)}
               >
-                Añadir nuevo 
+                Añadir nuevo
               </div>
             </div>
           )}
@@ -212,8 +212,56 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           >
             <DataGrid checkboxSelection rows={rows} columns={columns} />
           </Box>
-          
-          
+           {
+            active &&(
+              <Modal
+              open={active}
+              onClose={() => setActive(!active)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+             <Box
+                className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-md shadow-md"
+                sx={{
+                  backgroundColor: theme === "dark" ? "#1F2A40" : "#fff",
+                  color: theme === "dark" ? "#fff" : "#000",
+                }}
+              >
+                <h1 className={`${styles.title}`}>
+                  Añadir nuevo miembro
+                </h1>
+                <TextField
+                  label="Email"
+                  fullWidth
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  margin="normal"
+                  sx={{ backgroundColor: theme === "dark" ? "#3e4396" : "#f2f2f2" }}
+                />
+                <Select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  fullWidth
+                  displayEmpty
+                  sx={{ backgroundColor: theme === "dark" ? "#3e4396" : "#f2f2f2" }}
+                >
+                  <MenuItem value="admin">Admin</MenuItem>
+                  <MenuItem value="user">User</MenuItem>
+                </Select>
+                <div className="flex w-full items-center justify-between mb-6 mt-4">
+                
+                  <div
+                    className={`${styles.button} items-center !w-[120px] h-[30px] bg-[#d6d]`}
+                    onClick={handleSubmit}
+                  >
+                    submit
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+            )}
+
+
           {open && (
             <Modal
               open={open}
@@ -223,25 +271,26 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
             >
               <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-0">
                 <h1 className={`${styles.title}`}>
-                  Esta seguro que desea eliminar este Usuario ?
+                  ¿ Desea eliminar este Usuario ?
                 </h1>
                 <div className="flex w-full items-center justify-between mb-6 mt-4">
                   <div
                     className={`${styles.button} !w-[120px] h-[30px] bg-[#57c7a3]`}
                     onClick={() => setOpen(!open)}
                   >
-                    Cancel
+                    Cancelar
                   </div>
                   <div
                     className={`${styles.button} !w-[120px] h-[30px] bg-[#d6d]`}
                     onClick={handleDelete}
                   >
-                    Delete
+                    Confirmar
                   </div>
                 </div>
               </Box>
             </Modal>
           )}
+
         </Box>
       )}
     </div>
