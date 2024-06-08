@@ -1,6 +1,6 @@
 import Ratings from "@/app/utils/Ratings";
 import React, { useState } from "react";
-import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
 import PropertyContentList from "../Propertie/PropertieContentList";
@@ -10,30 +10,51 @@ import ModalImage from "react-modal-image";
 import Link from "next/link";
 import { styles } from "@/app/styles/style";
 import Modal from "react-modal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 type Props = {
   data: any;
 };
 
 const PropertieDetails = ({ data }: Props) => {
   const { user } = useSelector((state: any) => state.auth);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string>("");
+
   const discountPorcentaje =
     ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100;
   const discountPorcentajePrice = discountPorcentaje.toFixed(0);
   const isPurchased =
     user && user?.properties?.find((item: any) => item._id === data._id);
 
-
   const firstImage = data.propertyData[0]?.images[0]?.url;
-  const openModal = () => {
-    setModalIsOpen(true);
+
+  const handleOrder = (e: any) => {
+    setOpen(true);
+  };
+  const handleDateChange = (date: Date) => {
+    setSelectedDate(date);
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedTime(e.target.value);
   };
-  const handleOrder = (e: any) => {
-    console.log("g");
+  const handleSave = () => {
+    if (selectedDate && selectedTime) {
+      const formattedDate = selectedDate.toISOString().split("T")[0];
+      console.log(
+        "Fecha agendada:",
+        formattedDate,
+        "Hora agendada:",
+        selectedTime
+      );
+      // Aquí puedes agregar la lógica para guardar la fecha y hora agendada
+      setOpen(false);
+    } else {
+      alert("Por favor selecciona una fecha y una hora");
+    }
   };
   return (
     <div>
@@ -164,46 +185,13 @@ const PropertieDetails = ({ data }: Props) => {
           </div>
           <div className="w-full 800px:w-[35%] relative">
             <div className="sticky top-[100px] left-0 z-50 w-full">
-            {firstImage && (
+              {firstImage && (
                 <>
                   <img
                     src={firstImage}
                     alt="Propiedad"
                     className="w-full h-auto cursor-pointer"
-                    onClick={openModal}
                   />
-                  <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    style={{
-                      content: {
-                        top: '0',
-                        left: '0',
-                        right: '0',
-                        bottom: '0',
-                        margin: 'auto',
-                        padding: '0',
-                        border: 'none',
-                        borderRadius: 'none',
-                        width: '100vw',
-                        height: '100vh',
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      },
-                      overlay: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                      },
-                    }}
-                  >
-                    <img
-                      src={firstImage}
-                      alt="Propiedad"
-                      className="w-full h-full object-contain"
-                      onClick={closeModal}
-                    />
-                  </Modal>
                 </>
               )}
               <div className="flex items-center">
@@ -219,17 +207,20 @@ const PropertieDetails = ({ data }: Props) => {
               </div>
               <div className="flex items-center">
                 {isPurchased ? (
-                  <Link className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
-                 href={`/propertie-access/${data._id}`}>
-                  Enter to course
+                  <Link
+                    className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
+                    href={`/propertie-access/${data._id}`}
+                  >
+                    Enter to course
                   </Link>
-                ):(
-                  <div className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
-                  onClick={handleOrder}>
-                      compra ahora
+                ) : (
+                  <div
+                    className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
+                    onClick={handleOrder}
+                  >
+                    Agendar Visitar
                   </div>
                 )}
-
               </div>
               <br />
               <p className="pb-1 text-black dark:text-white">.Asesoria</p>
@@ -238,6 +229,51 @@ const PropertieDetails = ({ data }: Props) => {
             </div>
           </div>
         </div>
+        <>
+          {open && (
+            <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center ">
+              <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow p-3">
+                <div className="w-full flex justify-end">
+                  <IoCloseOutline
+                    size={40}
+                    className="text-black cursor-pointer"
+                    onClick={() => setOpen(false)}
+                  />
+                </div>
+                <div className="p-4">
+                <h2 className="text-[20px] font-Poppins font-[600] text-black mb-4">
+                    Agendar Visita
+                  </h2>
+                  <div className="mb-4">
+                    <label className="block text-black mb-2">Fecha</label>
+                    <DatePicker
+                      selected={selectedDate}
+                      onChange={handleDateChange}
+                      className="w-full p-2 border text-white border-gray-300 rounded"
+                      dateFormat="yyyy/MM/dd"
+                      placeholderText="Selecciona una fecha"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-black mb-2">Hora</label>
+                    <input
+                      type="time"
+                      value={selectedTime}
+                      onChange={handleTimeChange}
+                      className="w-full p-2 border text-white border-gray-300 rounded"
+                    />
+                  </div>
+                  <button
+                    onClick={handleSave}
+                    className="w-full p-2 bg-blue-600 text-white rounded"
+                  >
+                    Guardar
+                  </button>
+                  </div>
+              </div>
+            </div>
+          )}
+        </>
       </div>
     </div>
   );

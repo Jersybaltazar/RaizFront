@@ -38,7 +38,6 @@ const PropertieDetailsPage = ({ id }: Props) => {
           />
           <PropertieDetails
             data={data.property}
-          
           />
           <Footer/>
         </div>
