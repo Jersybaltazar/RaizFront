@@ -23,29 +23,7 @@ const people = [
     image:
       "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
   },
-  {
-    id: 4,
-    name: "Emily Davis",
-    designation: "UX Designer",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-  },
-  {
-    id: 5,
-    name: "Tyler Durden",
-    designation: "Soap Developer",
-    tipo: "venta",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
-  },
-  {
-    id: 6,
-    name: "Dora",
-    designation: "The Explorer",
-    tipo: "alquiler",
-    image:
-      "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3534&q=80",
-  },
+
 ];
 
 // Componente de vista previa del tooltip animado
@@ -54,9 +32,7 @@ export function AnimatedTooltipPreview() {
     <div className="relative flex items-center">
       <div
         className="absolute inset-0 bg-cover bg-no-repeat bg-center rounded-full"
-        style={{
-          backgroundImage: "url('ruta_de_tu_imagen_de_fondo_en_mosaico')", // Ruta de la imagen de fondo en mosaico
-        }}
+
       ></div>
       {/* Contenedor de las imágenes de perfil /}
       <div className="flex items-center justify-start gap-[-6px] overflow-hidden">

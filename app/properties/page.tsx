@@ -2,7 +2,7 @@
 import Heading from "../../app/utils/Heading";
 import Header from "../components/Header";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
-import { useGetAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
+import { useGetUsersAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader/Loader";
@@ -14,7 +14,7 @@ type Props = {};
 const page = (props: Props) => {
   const searchParams = useSearchParams();
   const search = searchParams?.get("title");
-  const { data, isLoading } = useGetAllPropertiesQuery(undefined, {});
+  const { data, isLoading } = useGetUsersAllPropertiesQuery(undefined, {});
   const { data: categoriesData } = useGetHeroDataQuery("Categories", {});
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);

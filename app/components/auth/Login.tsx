@@ -10,47 +10,46 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { styles } from "../../../app/styles/style";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
-
-
 
 type Props = {
   setRoute: (route: string) => void;
-  setOpen: (open: boolean)=> void;
+  setOpen: (open: boolean) => void;
 };
 
-const schema = Yup.object().shape({  
+const schema = Yup.object().shape({ 
   email: Yup.string()
     .email("Correo Electronico no valido")
     .required("Por favor infrese su correo"),
-  password: Yup.string().required("Por favor ingrese su contraseña").min(6),
-}); 
+  password: Yup.string()
+    .required("Por favor ingrese su contraseña")
+    .min(6, "La contraseña debe tener al menos 6 caracteres"),
+});
 
-
-const Login: FC<Props> = ({ setRoute , setOpen}) => {
+const Login: FC<Props> = ({ setRoute, setOpen }) => {
   const [show, setShow] = useState(false);
-  const [login,{isSuccess,error}] = useLoginMutation();
+  const [login, { isSuccess, error }] = useLoginMutation();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,
     onSubmit: async ({ email, password }) => {
-      await login({email, password});
+      await login({ email, password });
     },
   });
-  useEffect(()=>{
+  useEffect(() => {
     if (isSuccess) {
       toast.success("Acceso Correcto");
       setOpen(false);
     }
     if (error) {
       if ("data" in error) {
-          const errorData = error as any;
-          toast.error(errorData.data.message);
+        const errorData = error as any;
+        toast.error(errorData.data.message);
       }
     }
-  },[isSuccess, error]);
+  }, [isSuccess, error, setOpen]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 
@@ -108,17 +107,27 @@ const Login: FC<Props> = ({ setRoute , setOpen}) => {
           )}
         </div>
         <div className="w-full mt-5">
-          <input type="submit" value="Iniciar Sesion" className={`${styles.button}`} />
+          <input
+            type="submit"
+            value="Iniciar Sesion"
+            className={`${styles.button}`}
+          />
         </div>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
-          O registrese con
+          o inicia con
         </h5>
         <div className="flex items-center justify-center my-3">
-          <FcGoogle size={30} className="cursor-pointer mr-2" 
-          onClick={()=> signIn("google")}/>
-          <AiFillGithub size={30} className="cursor-pointer ml-2"
-          onClick={()=> signIn("github")} />
+          <FcGoogle
+            size={30}
+            className="cursor-pointer mr-2"
+            onClick={() => signIn("google")}
+          />
+          <AiFillGithub
+            size={30}
+            className="cursor-pointer ml-2"
+            onClick={() => signIn("github")}
+          />
         </div>
         <h5 className="text-center pt-4 font-Poppins text-[14px]">
           ¿ No tienes una cuenta ?{" "}

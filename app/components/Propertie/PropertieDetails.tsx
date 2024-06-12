@@ -12,6 +12,8 @@ import { styles } from "@/app/styles/style";
 import Modal from "react-modal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useCreateVisitMutation } from "@/redux/features/orders/ordersApi";
+
 type Props = {
   data: any;
 };
@@ -22,6 +24,7 @@ const PropertieDetails = ({ data }: Props) => {
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [createVisit] = useCreateVisitMutation();
 
   const discountPorcentaje =
     ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100;
@@ -41,17 +44,23 @@ const PropertieDetails = ({ data }: Props) => {
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTime(e.target.value);
   };
-  const handleSave = () => {
+  const handleSave = async () => {
     if (selectedDate && selectedTime) {
-      const formattedDate = selectedDate.toISOString().split("T")[0];
-      console.log(
-        "Fecha agendada:",
-        formattedDate,
-        "Hora agendada:",
-        selectedTime
-      );
+      const formattedDate = selectedDate.toISOString();
+      const visitData = {
+        propertyId: data._id,
+        visitDate: formattedDate,
+        visitTime: selectedTime,
+      };
+      try{
+        await createVisit(visitData).unwrap();
+        setOpen(false);
+        alert("Visita agendada con éxito");
+      }catch (error) {
+        console.error("Error agendando visita", error);
+        alert("Error agendando la visita");
+         }
       // Aquí puedes agregar la lógica para guardar la fecha y hora agendada
-      setOpen(false);
     } else {
       alert("Por favor selecciona una fecha y una hora");
     }

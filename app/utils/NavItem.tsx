@@ -3,7 +3,7 @@ import React from "react";
 
 export const navItemData = [
   {
-    name: "Home",
+    name: "Inicio",
     url: "/",
   },
   {
@@ -11,15 +11,15 @@ export const navItemData = [
     url: "/properties",
   },
   {
-    name: "About",
+    name: "Nosotros",
     url: "/about",
   },
   {
-    name: "Polocity",
+    name: "Poloticas",
     url: "/policy",
   },
   {
-    name: "FAQ",
+    name: "PyR",
     url: "/faq",
   },
 ];

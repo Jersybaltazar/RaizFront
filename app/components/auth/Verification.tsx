@@ -109,17 +109,17 @@ const Verification: FC<Props> = ({ setRoute }) => {
       <br />
       <div className="w-full flex justify-center">
         <button className={`${styles.button}`} onClick={verificationHandler}>
-          verify OTP
+          Verificar cuenta
         </button>
       </div>
       <br />
       <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
-        Go back ign in ??{""}
+        Volver al Inicio de Sesión ?{""}
         <span
           className="text-[#2190ff] pl-1 cursor-pointer"
           onClick={() => setRoute("Login")}
         >
-          Sign In
+          Iniciar Sesion
         </span>
       </h5>
     </div>
