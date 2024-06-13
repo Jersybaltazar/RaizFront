@@ -61,7 +61,7 @@ const SideBarProfile: FC<Props> = ({
       >
         <SiCoursera size={20}  className="dark:text-white text-black"/>
         <h5 className="pl-2 800px:block hidden font-Poppins dark:text-white light:text-black">
-          Propiedades Inscritas
+          Propiedades Visitadas
         </h5>
       </div>
       {user.role === "admin" && (
@@ -74,7 +74,7 @@ const SideBarProfile: FC<Props> = ({
         >
           <MdOutlineAdminPanelSettings size={20}  className="dark:text-white text-black" />
           <h5 className="pl-2 800px:block hidden font-Poppins dark:text-white light:text-black">
-            Admin Dashboard
+            Administrador
           </h5>
         </Link>
       )}

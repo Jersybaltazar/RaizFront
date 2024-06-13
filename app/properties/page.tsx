@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader/Loader";
 import { styles } from "../styles/style";
 import PropertieCard from "../components/Propertie/PropertieCard";
-
+import Footer from "../components/Route/Footer";
 type Props = {};
 
 const page = (props: Props) => {
@@ -104,6 +104,7 @@ const page = (props: Props) => {
                 ))}
             </div>
           </div>
+          <Footer/>
         </>
       )}
     </div>

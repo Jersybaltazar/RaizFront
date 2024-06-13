@@ -220,14 +220,14 @@ const PropertieDetails = ({ data }: Props) => {
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/propertie-access/${data._id}`}
                   >
-                    Enter to course
+                 Agendar Visita
                   </Link>
                 ) : (
                   <div
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     onClick={handleOrder}
                   >
-                    Agendar Visitar
+                    Agendar Visita
                   </div>
                 )}
               </div>

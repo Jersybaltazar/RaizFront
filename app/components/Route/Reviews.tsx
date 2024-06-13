@@ -1,71 +1,59 @@
-import { styles } from "@/app/styles/style";
-import Image from "next/image";
 import React from "react";
-import ReviewCard from "../Review/ReviewCard";
+import { styles } from "@/app/styles/style";
 
-type Props = {};
-export const reviews = [
-    {
-        name:"nill gates",
-        avatar:"https://randomuser.me/api/portraits/men/1.jpg",
-        profession:"Student | Cambridge University",
-        comment:"Lorem IOPasdasdsadasdasdsadasdasdasdasd"
-    },
-    {
-        name:"nill gates",
-        avatar:"https://randomuser.me/api/portraits/women/1.jpg",
-        profession:"Student | Cambridge University",
-        comment:"    },Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet natus placeat dolor tempore praesentium voluptas odio sunt totam et porro aspernatur dignissimos at architecto cumque fuga, sed saepe vero id.        "
-         },
-    {
-      name:"nill gates",
-      avatar:"https://randomuser.me/api/portraits/men/1.jpg",
-      profession:"Student | Cambridge University",
-      comment:"Lorem IOPasdasdsadasd"
-  },
-  {
-      name:"nill gates",
-      avatar:"https://randomuser.me/api/portraits/women/1.jpg",
-      profession:"Student | Cambridge University",
-      comment:"la mas buena"
+// Genera el estilo de la animación
+const slideDownAnimation = `
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
-]
+  .text-slide-down {
+    display: inline-block;
+    animation: slideDown 1s ease-out forwards;
+  }
+`;
 
-const Reviews = (props: Props) => {
+const Reviews = () => {
+  // Función para dividir el texto en palabras y agregar retraso a cada palabra
+  const getAnimatedWords = (text: string, baseDelay = 0.5) => {
+    return text.split(" ").map((word, index) => (
+      <span
+        key={index}
+        className="text-slide-down"
+        style={{ animationDelay: `${baseDelay + index * 0.2}s` }}
+      >
+        {word}&nbsp;
+      </span>
+    ));
+  };
+
   return (
-    <div className="w-[90%] 800px:w-[85%] m-auto">
-      <div className="w-full 800px:flex items-center">
-        <div className="800px:w-[50%] w-full">
-          <Image
-            src={require("../../../public/assets/casa.jpeg")}
-            alt="business"
-            width={400}
-            height={400}
-          />
-        </div>
-        <div className="800px:w-[50%] w-full">
-          <h3 className={`${styles.title} 800px:!text-[40px]`}>
-            Nuestros clientes  <span className="text-gradient">nos respaldan</span>
-            {""}
-            <br />
-            mira lo que dicen de nosotros
-          </h3>
+    <div className="relative overflow-hidden w-full h-[500px]">
+      <style>{slideDownAnimation}</style>
+      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center bg-black bg-opacity-50 text-white p-4 md:p-8 lg:p-16">
+        <h3 className={`${styles.title} text-[30px] md:text-[40px] lg:text-[50px] font-bold`}>
+          {getAnimatedWords("Un Equipo Apasionado por Hacer Realidad")}
           <br />
-          <p className={styles.label}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-            animi, perferendis laudantium provident assumenda et sequi
-            voluptates ipsa exercitationem quibusdam accusamus fuga reiciendis
-            natus qui placeat! Doloremque, quasi facere. Optio.
-          </p>
-        </div>
+          {getAnimatedWords("tus Sueños Inmobiliarios")}
+        </h3>
         <br />
-        <br />
+        <p className={`${styles.label} text-[16px] md:text-[20px] italic mx-4 md:mx-8 lg:mx-16`}>
+          {getAnimatedWords("Somos tu equipo, tu guía en el camino hacia el hogar perfecto. ¡Bienvenido a nuestra familia!")}
+        </p>
       </div>
-      <div className="grid grid-cols-1 gap-[25px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-2 lg:gap-[25px] xl:grid-cols-2 xl:gap-[35px] mb-12 border-0 md:[&>*:nth-child(3)]:!mt-[-60px] md:[&>*:nth-child(6)]:!mt-[-40px]">
-          {reviews &&
-          reviews.map((i,index)=> <ReviewCard item={i} key={index}/> )}
-
-        </div>
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/assets/equipo.png"
+          alt="business"
+          className="object-cover w-full h-full"
+        />
+      </div>
     </div>
   );
 };

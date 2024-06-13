@@ -3,11 +3,10 @@ import React, { useState, FC } from "react";
 import Image from "next/image";
 import Heading from "../utils/Heading";
 import Header from "../components/Header";
-import Footer from "../utils/Footer";
+import Footer from "../components/Route/Footer";
 import Reviews from "../components/Route/Reviews";
 import { styles } from "@/app/styles/style";
-
-import Properties from "../components/Route/Properties";
+import MisionVision from "../components/MissionVision/MissionVission";
 
 const textStyle: React.CSSProperties = {
   padding: "20px",
@@ -15,24 +14,24 @@ const textStyle: React.CSSProperties = {
 };
 
 const cardContainerStyle: React.CSSProperties = {
-  perspective: "1500px", 
+  perspective: "1500px",
   margin: "1rem",
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
   flexWrap: "wrap",
 };
 
 const cardStyles: React.CSSProperties = {
   width: "100%",
-  maxWidth: "320px", 
-  height: "400px", 
+  maxWidth: "320px",
+  height: "400px",
   position: "relative",
   borderRadius: "20px",
   textAlign: "center",
-  transition: "transform 1s", 
+  transition: "transform 1s",
   transformStyle: "preserve-3d",
   boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  marginBottom: "1rem",
+  margin: "1rem",
 };
 
 const cardContentStyle: React.CSSProperties = {
@@ -87,7 +86,6 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ index, imageSrc, text }) => {
   const [isHovered, setIsHovered] = useState(false);
-  // const overlayText = ["¿Por qué?", "¿Cómo?", "¿Qué hacemos?"][index];
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -107,7 +105,6 @@ const Card: FC<CardProps> = ({ index, imageSrc, text }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div style={cardFrontStyle}>
-        {/* <div style={overlayTextStyle}>{overlayText}</div> */}
         <Image
           style={{ ...imageContainerStyle }}
           src={imageSrc}
@@ -143,9 +140,7 @@ const Page: FC = () => {
         route={route}
       />
       <Reviews />
-
-      <Properties />
-      {/* <Cont /> */}
+      <MisionVision />
 
       <div style={{ padding: "2rem", textAlign: "center" }}>
         <h3 className={`${styles.title} 800px:!text-[40px]`}>
