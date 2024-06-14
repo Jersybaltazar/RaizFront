@@ -11,7 +11,7 @@ import PropertieCard from "../components/Propertie/PropertieCard";
 import Footer from "../components/Route/Footer";
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   const searchParams = useSearchParams();
   const search = searchParams?.get("title");
   const { data, isLoading } = useGetUsersAllPropertiesQuery(undefined, {});
@@ -111,4 +111,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

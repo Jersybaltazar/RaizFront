@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Route/Footer";
 interface Props {}
 
-const page: FC<Props> = () => {
+const Page: FC<Props> = () => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login");
@@ -213,4 +213,4 @@ const page: FC<Props> = () => {
   );
 };
 
-export default page;
+export default Page;

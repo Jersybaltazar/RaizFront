@@ -2,10 +2,10 @@ import { apiSlice } from "../api/apiSlice";
 export const OrdersApi = apiSlice.injectEndpoints({
     endpoints:(builder)=>({
         createVisit:builder.mutation({
-            query:(orderData)=>({
-                url:"save-visit",
+            query:(visitData)=>({
+                url:"create-order",
                 method:"POST",
-                body:orderData,
+                body:visitData, 
                 credentials: 'include' as const,
             })
         })

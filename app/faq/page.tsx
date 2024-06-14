@@ -6,7 +6,7 @@ import Footer from "../components/Route/Footer";
 import FAQ from "../components/Route/FAQ";
 interface Props {}
 
-const page = (props:Props) => {
+const Page = (props:Props) => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(5);
   const [route, setRoute] = useState("Login");
@@ -31,4 +31,4 @@ const page = (props:Props) => {
     </div>
   );
 };
-export default page;
+export default Page;
