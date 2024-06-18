@@ -6,7 +6,7 @@ import { FaFacebookMessenger } from "react-icons/fa";
 
 const sendMessageToServer = async (message: string) => {
   try {
-    const response = await fetch("http://localhost:5000/predict", {
+    const response = await fetch("https://normila.pythonanywhere.com/predict", {
       method: "POST",
       body: JSON.stringify({ message }),
       headers: {
