@@ -4,14 +4,14 @@ import Header from "../components/Header";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import { useGetUsersAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,Suspense} from "react";
 import Loader from "../components/Loader/Loader";
 import { styles } from "../styles/style";
 import PropertieCard from "../components/Propertie/PropertieCard";
 import Footer from "../components/Route/Footer";
 type Props = {};
 
-const Page = (props: Props) => {
+const PropertiesComponent  = (props: Props) => {
   const searchParams = useSearchParams();
   const search = searchParams?.get("title");
   const { data, isLoading } = useGetUsersAllPropertiesQuery(undefined, {});
@@ -110,5 +110,13 @@ const Page = (props: Props) => {
     </div>
   );
 };
+const Page = (props: Props) => {
+  return (
+    <Suspense fallback={<Loader />}>
+      <PropertiesComponent />
+    </Suspense>
+  );
+};
+
 
 export default Page;
