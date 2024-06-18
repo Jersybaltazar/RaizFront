@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 import Loader from "@/app/components/Loader/Loader"
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import { redirect } from "next/navigation";
