@@ -4,16 +4,16 @@ import Header from "../components/Header";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import { useGetUsersAllPropertiesQuery } from "@/redux/features/property/propertiesApi";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState ,Suspense} from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Loader from "../components/Loader/Loader";
 import { styles } from "../styles/style";
 import PropertieCard from "../components/Propertie/PropertieCard";
 import Footer from "../components/Route/Footer";
 type Props = {};
 
-const PropertiesComponent  = (props: Props) => {
+const PropertiesComponent = (props: Props) => {
   const searchParams = useSearchParams();
-  const search = searchParams?.get("title");
+  const search = searchParams?.get('title');
   const { data, isLoading } = useGetUsersAllPropertiesQuery(undefined, {});
   const { data: categoriesData } = useGetHeroDataQuery("Categories", {});
   const [route, setRoute] = useState("Login");
@@ -55,10 +55,9 @@ const PropertiesComponent  = (props: Props) => {
           />
           <div className="w-[95%] 800px:w-[85%] m-auto min-h-[70vh]">
             <Heading
-              title="Raiz app"
-              description="En esta plataforma de bienes y raices encontraras el terreno de tus sueños para que
-       vivas tus sueños "
-              Keywords="Departamentos, Casas, Terrenos"
+              title={"Raiz app"}
+              description={"En esta plataforma de bienes y raices encontraras el terreno de tus sueños para quevivas tus sueños "}
+              Keywords={"Departamentos, Casas, Terrenos"}
             />
             <br />
             <div className="w-full flex items-center flex-wrap">
@@ -88,7 +87,7 @@ const PropertiesComponent  = (props: Props) => {
             </div>
             {properties && properties.length === 0 && (
               <p
-                className={`${styles.label} justify-center min-h-[50vh flex items-center]`}
+                className={`${styles.label} justify-center min-h-[50vh] flex items-center`}
               >
                 {search
                   ? "Ninguna Propiedad encontrada"
@@ -104,7 +103,7 @@ const PropertiesComponent  = (props: Props) => {
                 ))}
             </div>
           </div>
-          <Footer/>
+          <Footer />
         </>
       )}
     </div>
@@ -117,6 +116,5 @@ const Page = (props: Props) => {
     </Suspense>
   );
 };
-
 
 export default Page;

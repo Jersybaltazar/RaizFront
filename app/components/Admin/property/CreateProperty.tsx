@@ -42,6 +42,7 @@ const CreateProperty = (props: Props) => {
   console.log(propertyInfo)
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
+  
   const [propertyContentData, setPropertyContentData] = useState([
     { 
       images:"",
@@ -56,7 +57,11 @@ const CreateProperty = (props: Props) => {
       virtualTour: "", //remplasa sugerencias 
     },
   ]);
+  console.log(propertyContentData)
   const [propertyData, setPropertyData] = useState({});
+
+
+  console.log(propertyData)
 
   const handleSubmit = async () => {
     //Formato de array  de beneficios
@@ -70,16 +75,17 @@ const CreateProperty = (props: Props) => {
     //Formato de matriz del contenido de propiedad
     const formattedPropertyContentData = propertyContentData.map(
       (propertyContent) => ({
-        videoUrl: propertyContent.videoUrl,
         bedrooms: propertyContent.bedrooms,
         bathrooms: propertyContent.bathrooms,
+        videoUrl: propertyContent.videoUrl,
+        images: propertyContent.images, 
         size: propertyContent.size,
         title: propertyContent.title,
         description: propertyContent.description,
         videoSection: propertyContent.videoSection,
         videoLength: propertyContent.videoLength,
         virtualTour: propertyContent.virtualTour,
-        images: propertyContent.images,
+        
       })
     );
     //preparar nuestro objeto de datos
@@ -99,11 +105,12 @@ const CreateProperty = (props: Props) => {
       propertyData: formattedPropertyContentData,
     };
     setPropertyData(data);
+    console.log("Prepared Data:", data);
   };
   
 
   const handlePropertyCreate = async (e: any) => {
-    console.log(propertyData)
+   // console.log(propertyData)
     const data = propertyData;
     if (!isLoading) {
       await createProperty(data); 

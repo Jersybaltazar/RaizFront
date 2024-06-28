@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://raizback.onrender.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,6 +14,7 @@
     "@mui/icons-material": "^5.15.9",
     "@mui/material": "^5.15.9",
     "@mui/x-data-grid": "^7.0.0",
+    "@mui/x-data-grid-premium": "^7.7.1",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.7.1",
     "eslint-plugin-react-hooks": "^5.0.0-canary-47beb96cc-20240222",
@@ -42,6 +42,7 @@
     "@types/react": "^18",
     "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^18",
+    "@types/react-icons": "^3.0.0",
     "@types/react-image-gallery": "^1.2.4",
     "@types/react-modal": "^3.16.3",
     "@types/react-modal-image": "^2.6.3",

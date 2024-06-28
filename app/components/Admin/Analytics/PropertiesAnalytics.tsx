@@ -9,16 +9,6 @@ type Props = {}
 const PropertiesAnalytics = (props: Props) => {
     const {data, isLoading} = useGetPropertiesAnalyticsQuery({});
 
-    const analyticsData = [
-        {name:'Jun 2023',uv:3},
-        {name:'July 2023',uv:2},
-        {name:'August 2023',uv:5},
-        {name:'Sept 2023',uv:7},
-        {name:'Octob 2023',uv:3},
-        {name:'Nov 2023',uv:3},
-        {name:'Dec 2023',uv:30},
-    ];
-
     const analyticsdata:any = [];
     data &&
     data.properties.last12Months.forEach((item:any)=>{
@@ -43,7 +33,7 @@ const PropertiesAnalytics = (props: Props) => {
                 <div className='w-full h-[90%] flex items-center justify-center '>
                     <ResponsiveContainer width="90%" height="50%">
                         <BarChart
-                        width={150} height={300} data={analyticsData}>
+                        width={150} height={300} data={analyticsdata}>
                             <XAxis dataKey="name">
                                 <Label offset={0} position="insideBottom"/>
                             </XAxis>

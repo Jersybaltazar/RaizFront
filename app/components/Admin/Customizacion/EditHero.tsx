@@ -61,32 +61,36 @@ const EditHero: FC<Props> = (props: Props) => {
 
   return (
     <>
-      <div className="w-full 1000px:flex items-center">
-        <div className="absolute top-[100px] 1000px:top-[unset] 1500px:h-[700px] 1500px:w-[700px] 1100px:h-[500px] 1100px:w-[500px] h-[50vh] w-[50vh] hero_animation  rounded-[50%] 1100px:left-[18rem] 1500px:left-[21rem]"></div>
-        <div className="1000px:w-[40%] flex 1000px:min-h-screen items-center justify-end pt-[70px] 1000px:pt-[0] z-10">
-          <div className="relative flex items-center justify-end">
-            <img
-              src={image}
-              alt=""
-              className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] h-[auto] z-[10]"
-            />
-            <input
-              type="file"
-              name=""
-              id="banner"
-              accept="image/*"
-              onChange={handleUpdate}
-              className="hidden"
-            />
-            <label htmlFor="banner" className="absolute bottom-0 right-0 z-20">
-              <AiOutlineCamera className="dark:text-white text-black text-[18px] cursor-pointer"/>
-            </label>
+      <div className="w-full flex flex-col items-center 1000px:flex-row 1000px:min-h-screen">
+        <div className="relative flex items-center justify-center w-full 1000px:w-1/2 h-72 1000px:h-auto">
+          <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center h-full w-full">
+            <div className="relative w-72 h-72 1000px:w-[500px] 1000px:h-[500px] 1500px:w-[700px] 1500px:h-[700px] rounded-full hero_animation">
+              <img
+                src={image}
+                alt="Banner"
+                className="object-contain w-full h-full rounded-full"
+              />
+              <input
+                type="file"
+                name="banner"
+                id="banner"
+                accept="image/*"
+                onChange={handleUpdate}
+                className="hidden"
+              />
+              <label
+                htmlFor="banner"
+                className="absolute bottom-4 right-4 z-20"
+              >
+                <AiOutlineCamera className="dark:text-white text-black text-[18px] cursor-pointer" />
+              </label>
+            </div>
           </div>
         </div>
-        <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-left mt-[150px]">
+        <div className="w-full 1000px:w-1/2 flex flex-col items-center justify-center text-center 1000px:text-left mt-12 1000px:mt-0">
           <textarea
             className="dark:text-white resize-none text-[#000000c7] text-[30px] px-3 w-full 1000px:text-[60px] 1500px:text-[70px] font-[600]"
-            placeholder="Improve Yoir online learning experiencia en el instante"
+            placeholder="Improve Your online learning experience instantly"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             rows={4}
@@ -99,20 +103,16 @@ const EditHero: FC<Props> = (props: Props) => {
             className="dark:text-[#edfff4] text-[#000000ac] font-Josefin font-[600] text-[18px] 1500px:!w-[55%] 1100px:!w-[74%] bg-transparent"
           ></textarea>
           <br />
-          <br />
-          <br />
           <div
             className={`${
               styles.button
-            } !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34]
-              ${
-                data?.layout?.banner?.title !== title ||
-                data?.layout?.banner?.subTitle !== subTitle ||
-                data?.layout?.banner?.image?.url !== image
-                  ? "!cursor-pointer !bg-[#42d383]"
-                  : "!cursor-not-allowed"
-              }
-              !rounded absolute bottom-12 right-12`}
+            } !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34] ${
+              data?.layout?.banner?.title !== title ||
+              data?.layout?.banner?.subTitle !== subTitle ||
+              data?.layout?.banner?.image?.url !== image
+                ? "!cursor-pointer !bg-[#42d383]"
+                : "!cursor-not-allowed"
+            } !rounded mt-4`}
             onClick={
               data?.layout?.banner?.title !== title ||
               data?.layout?.banner?.subTitle !== subTitle ||

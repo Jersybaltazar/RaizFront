@@ -42,7 +42,7 @@ const Item: FC<itemProps> = ({ title, to, icon, selected, setSelected }) => {
       onClick={() => setSelected(title)}
       icon={icon}
     >
-      <Typography className="!text-[16px] !font-Poppins">{title}</Typography>
+      <Typography className="!text-[16px] !font-Poppins ">{title}</Typography>
 
       <Link href={to} />
     </MenuItem>
@@ -181,14 +181,14 @@ const Sidebar = () => {
               {!isCollapsed && "Data"}
             </Typography>
             <Item
-              title="Users"
+              title="Usuarios"
               to="/admin/users"
               icon={<GroupsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Invoices"
+              title="Visitas"
               to="/admin/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
@@ -202,14 +202,14 @@ const Sidebar = () => {
               {!isCollapsed && "Content"}
             </Typography>
             <Item
-              title="Create Properties"
+              title="Crear Propiedades"
               to="/admin/create-property"
               icon={<VideoCallIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="live Properties"
+              title="Ver Propiedades"
               to="/admin/properties"
               icon={<OndemandVideoIcon />}
               selected={selected}
@@ -223,21 +223,21 @@ const Sidebar = () => {
               {!isCollapsed && "Customization"}
             </Typography>
             <Item
-              title="Hero"
+              title="Cambiar Inicio"
               to="/admin/hero"
               icon={<WebIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="FAQ"
+              title="PyR"
               to="/admin/faq"
               icon={<QuizIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Categories"
+              title="Categorias"
               to="/admin/categories"
               icon={<WysiwygIcon />}
               selected={selected}
@@ -251,7 +251,7 @@ const Sidebar = () => {
               {!isCollapsed && "Controllers"}
             </Typography>
             <Item
-              title="Manage Team"
+              title="Equipo"
               to="/admin/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
@@ -272,7 +272,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Analisis de Ordenes"
+              title="Analisis de Visitas"
               to="/admin/orders-analytics"
               icon={<MapOutlinedIcon />}
               selected={selected}
@@ -292,13 +292,7 @@ const Sidebar = () => {
             >
               {!isCollapsed && "Extras"}
             </Typography>
-            <Item
-              title="Settings"
-              to="/admin/settings"
-              icon={<SettingsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+          
             <div onClick={logOutHandler}>
               <Item
                 title="Cerrar Sesión"

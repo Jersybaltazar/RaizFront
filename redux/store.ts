@@ -16,7 +16,10 @@ export const store = configureStore({
 // llamar a la función de token de actualización en cada carga de página
 const initializeApp = async () => {
   await store.dispatch(
-    apiSlice.endpoints.loadUser.initiate({}, { forceRefetch: true })
+    apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
+  );
+  await store.dispatch(
+    apiSlice.endpoints.loadUser.initiate({}, {forceRefetch:true})
   );
 };
 initializeApp();

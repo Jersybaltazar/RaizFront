@@ -15,20 +15,6 @@ type Props = {
   isDashboard?: boolean;
 };
 
-const analyticdata = [
-  { name: "Enero 2023", count: 400 },
-  { name: "Febrero 2023", count: 48200 },
-  { name: "Marzo 2023", count: 8200 },
-  { name: "Abril 2023", count: 32432 },
-  { name: "Mayo 2023", count: 2341 },
-  { name: "Junio 2023", count: 2518 },
-  { name: "Julio 2023", count: 9821 },
-  { name: "Agosto 2023", count: 236 },
-  { name: "Setiembre 2023", count: 374 },
-  { name: "Octubre 2023", count: 984 },
-  { name: "Noviembre 2023", count: 768 },
-  { name: "Diciembre 2023", count: 926 },
-];
 
 const UsersAnalytics = ({ isDashboard }: Props) => {
   const { data, isLoading } = useGetUsersAnalyticsQuery({});
@@ -75,7 +61,7 @@ const UsersAnalytics = ({ isDashboard }: Props) => {
               height={!isDashboard ? "50%" : "100%"}
             >
               <AreaChart
-                data={analyticdata}
+                data={analyticsData}
                 margin={{
                   top: 20,
                   right: 20,

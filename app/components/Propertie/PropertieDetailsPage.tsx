@@ -12,7 +12,6 @@ type Props = {
 };
 
 const PropertieDetailsPage = ({ id }: Props) => {
-  console.log()
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
   const { data, isLoading } = useGetPropertieDetailsQuery(id);
@@ -38,6 +37,8 @@ const PropertieDetailsPage = ({ id }: Props) => {
           />
           <PropertieDetails
             data={data.property}
+            setRoute={setRoute}
+            setOpen={setOpen}
           />
           <Footer/>
         </div>

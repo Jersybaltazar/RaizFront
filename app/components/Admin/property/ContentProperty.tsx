@@ -26,28 +26,33 @@ const ContentProperty: FC<Props> = ({
   );
   const [dragging, setDragging] = useState(false);
 
-
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
   // subida de imágenes para una sección específica
-  const handleImagesUpload = (
+  const handleImagesUpload = async (
     index: number,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     // Comprueba si el evento contiene archivos
     if (event.target.files) {
       const files = Array.from(event.target.files);
-      const imageUrls = files.map((file) => ({
-        url: URL.createObjectURL(file),
-        name: file.name,
-      }));
+      const imageUrls = await Promise.all(
+        files.map(async (file) => await convertToBase64(file))
+      );
       setPropertyContentData((prevData: any[]) => {
         const updatedData = [...prevData];
-
-        updatedData[index]={
+        updatedData[index] = {
           ...updatedData[index],
-          images:updatedData[index].images
-          ? updatedData[index].images.concat(imageUrls)
-          : imageUrls
-        }
+          images: updatedData[index].images
+            ? updatedData[index].images.concat(imageUrls)
+            : imageUrls,
+        };
         return updatedData;
       });
     }
@@ -64,25 +69,23 @@ const ContentProperty: FC<Props> = ({
     setDragging(false);
   };
 
-  const handleDrop = (index: number, event: React.DragEvent) => {
+  const handleDrop = async (index: number, event: React.DragEvent) => {
     event.preventDefault();
     setDragging(false);
 
     const files = Array.from(event.dataTransfer.files);
-    const imageUrls = files.map((file) => ({
-      url: URL.createObjectURL(file),
-      name: file.name,
-    }));
-
+    const imageUrls = await Promise.all(
+      files.map(async (file) => await convertToBase64(file))
+    );
     setPropertyContentData((prevData: any) => {
       const updatedData = [...prevData];
 
       updatedData[index] = {
-          ...updatedData[index],
-          images: updatedData[index].images
-            ? updatedData[index].images.concat(imageUrls)
-            : imageUrls
-        };
+        ...updatedData[index],
+        images: updatedData[index].images
+          ? updatedData[index].images.concat(imageUrls)
+          : imageUrls,
+      };
       return updatedData;
     });
   };
@@ -102,8 +105,6 @@ const ContentProperty: FC<Props> = ({
     });
   };
 
- 
-
   const prevButton = () => {
     setActive(active - 1);
   };
@@ -121,7 +122,7 @@ const ContentProperty: FC<Props> = ({
       lastItem.size !== "";
 
     // Verificar si hay al menos una imagen
-    
+
     if (!isSectionValid) {
       toast.error(
         "La sección no puede estar vacía. Por favor, complete todos los campos ."
@@ -205,7 +206,6 @@ const ContentProperty: FC<Props> = ({
               {!isCollapsed[index] && (
                 <>
                   <div className="my-3">
- 
                     <input
                       type="file"
                       accept="image/*"

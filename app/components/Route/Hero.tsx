@@ -84,7 +84,7 @@ const Hero: FC<Props> = (props) => {
                 className="bg-transparent border dark:border-none dark:bg-[#575757] dark:placeholder:text-[#ffffffdd] rounded-[5px] p-2 w-full h-full outline-none tex-[#0000004e] dark:text-[#ffffffe6] text-[20px] font-[500] font-Josefin"
               />
               <div
-                className="absolute flex items-center justify-center w-[50px] cursor-pointer h-[50px] right-0 top-0 bg-[#39c1f3] rounded-r-[15px]"
+                className="absolute flex items-center justify-center w-[50px] cursor-pointer h-[50px] right-0 top-0 bg-[#39c1f3] rounded-r-[5px]"
                 onClick={handleSearch}
               >
                 <BiSearch className="text-white" size={30} />
@@ -92,7 +92,7 @@ const Hero: FC<Props> = (props) => {
             </div>
             <br />
             <br />
-            <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] relative flex items-center">
+            <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] flex items-center">
               <AnimatedTooltipPreview />
               <p className="font-Josefin dark:text-[#edfff4] text-[#000000b3] 1000px:pl-3 text-[18px] font-[600]">
                 500k + personas registradas . {""}

@@ -3,13 +3,12 @@ import Ratings from "@/app/utils/Ratings";
 import React, { FC } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
-
 type Props = {
   active: number;
   setActive: (active: number) => void;
   propertyData: any;
   handlePropertyCreate: any;
-  isEdit?:boolean;
+  isEdit?: boolean;
 };
 
 const PropertyPreview: FC<Props> = ({
@@ -17,22 +16,19 @@ const PropertyPreview: FC<Props> = ({
   handlePropertyCreate,
   setActive,
   active,
-  isEdit
+  isEdit,
 }) => {
-  console.log(propertyData)
   const discountPercentenge =
     ((propertyData?.estimatedPrice - propertyData?.price) /
       propertyData?.estimatedPrice) *
     100;
   const discountPercentengePrice = discountPercentenge.toFixed(0);
-const prevButton = ()=>{
-    setActive(active-1);
-};
-const createProperty = () =>{
+  const prevButton = () => {
+    setActive(active - 1);
+  };
+  const createProperty = () => {
     handlePropertyCreate();
-}
-
-
+  };
 
   return (
     <div className="w-[90%] m-auto py-5 mb-5">
@@ -101,17 +97,18 @@ const createProperty = () =>{
         </div>
       </div>
       <div className="w-full flex items-center justify-between">
-        <div className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
-        onClick={() => prevButton()}>
-            Prev
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
+          onClick={() => prevButton()}
+        >
+          Prev
         </div>
-        <div className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
-        onClick={()=>createProperty()}>
-            {
-              isEdit ? 'Actualizar Propiedad':'Crear'
-            }
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
+          onClick={() => createProperty()}
+        >
+          {isEdit ? "Actualizar Propiedad" : "Crear"}
         </div>
-
       </div>
     </div>
   );

@@ -50,8 +50,8 @@ const ImageWithCarousel: React.FC<ImageWithCarouselProps> = ({ imageSrc, carouse
 
 const styles: { [key: string]: React.CSSProperties } = {
   thumbnail: {
-    width: '40px',
-    height: '40px',
+    width: '100%',
+    height: 'auto',
     cursor: 'pointer',
     textAlign: 'center',
   },

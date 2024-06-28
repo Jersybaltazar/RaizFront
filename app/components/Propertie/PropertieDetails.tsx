@@ -1,5 +1,7 @@
 import Ratings from "@/app/utils/Ratings";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCreateVisitMutation } from "@/redux/features/orders/ordersApi";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
@@ -9,22 +11,35 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import ModalImage from "react-modal-image";
 import Link from "next/link";
 import { styles } from "@/app/styles/style";
-import Modal from "react-modal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useCreateVisitMutation } from "@/redux/features/orders/ordersApi";
+import socketIO from "socket.io-client";
+import ImageWithCarousel from "../carrousel/Carrousel";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "";
+const socketId = socketIO(ENDPOINT,{transports:["websocket"]});
 
 type Props = {
   data: any;
+  setOpen: any;
+  setRoute: any;
 };
 
-const PropertieDetails = ({ data }: Props) => {
-  const { user } = useSelector((state: any) => state.auth);
+const PropertieDetails = ({
+  data,
+  setRoute,
+  setOpen: openAuthModal,
+}: Props) => {
+  //const { user } = useSelector((state: any) => state.auth);
+  const [user,setUser] = useState<any>();
+  const { data: userData } = useLoadUserQuery(undefined, {});
   const [open, setOpen] = useState(false);
-
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
-  const [createVisit] = useCreateVisitMutation();
+  const [createVisit] = useCreateVisitMutation(); 
+
+  useEffect(()=>{
+    setUser(userData?.user);
+  },[userData])
 
   const discountPorcentaje =
     ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100;
@@ -52,14 +67,18 @@ const PropertieDetails = ({ data }: Props) => {
         visitDate: formattedDate,
         visitTime: selectedTime,
       };
-      try{
+      try {
         await createVisit(visitData).unwrap();
+        socketId.emit("notification",{
+          title: "Nueva Agenda",
+          message: `Tienes una nueva agenda de ${data.propertie.name}`,
+          userId: user._id,
+        })
         setOpen(false);
         alert("Visita agendada con éxito");
-      }catch (error) {
-        console.error("Error agendando visita", error);
+      } catch (error) {
         alert("Error agendando la visita");
-         }
+      }
       // Aquí puedes agregar la lógica para guardar la fecha y hora agendada
     } else {
       alert("Por favor selecciona una fecha y una hora");
@@ -80,9 +99,6 @@ const PropertieDetails = ({ data }: Props) => {
                   {data.reviews?.length}Calificaciones
                 </h5>
               </div>
-              <h5 className="text-black dark:text-white">
-                {data.purchased}Visitas
-              </h5>
             </div>
             <br />
             <h1 className="text-[25px] font-Poppins font-[600] text-black dark:text-white">
@@ -194,14 +210,11 @@ const PropertieDetails = ({ data }: Props) => {
           </div>
           <div className="w-full 800px:w-[35%] relative">
             <div className="sticky top-[100px] left-0 z-50 w-full">
-              {firstImage && (
-                <>
-                  <img
-                    src={firstImage}
-                    alt="Propiedad"
-                    className="w-full h-auto cursor-pointer"
-                  />
-                </>
+            {firstImage && (
+                <ImageWithCarousel 
+                imageSrc={firstImage}
+                  
+                carouselImages={data.propertyData[0]?.images.map((image: any) => image.url)} />
               )}
               <div className="flex items-center">
                 <h1 className="pt-5 text-[25px] text-black dark:text-white ">
@@ -220,7 +233,7 @@ const PropertieDetails = ({ data }: Props) => {
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/propertie-access/${data._id}`}
                   >
-                 Agendar Visitasss
+                    Agendar Visitasss
                   </Link>
                 ) : (
                   <div
@@ -250,7 +263,7 @@ const PropertieDetails = ({ data }: Props) => {
                   />
                 </div>
                 <div className="p-4">
-                <h2 className="text-[20px] font-Poppins font-[600] text-black mb-4">
+                  <h2 className="text-[20px] font-Poppins font-[600] text-black mb-4">
                     Agendar Visita
                   </h2>
                   <div className="mb-4">
@@ -278,7 +291,7 @@ const PropertieDetails = ({ data }: Props) => {
                   >
                     Guardar
                   </button>
-                  </div>
+                </div>
               </div>
             </div>
           )}

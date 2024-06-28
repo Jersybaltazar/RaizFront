@@ -13,49 +13,18 @@ import {
   YAxis,
 } from "recharts";
 
-const analytcdata = [
-  {
-    name: "Page A",
-    Count: 4000,
-  },
-  {
-    name: "page b",
-    Count: 2000,
-  },
-  {
-    name: "page c",
-    Count: 7000,
-  },
-  {
-    name: "page d",
-    Count: 1000,
-  },
-  {
-    name: "page e",
-    Count: 5000,
-  },
-  {
-    name: "page f",
-    Count: 4000,
-  },
-  {
-    name: "page g",
-    Count: 200,
-  },
-];
+
 type Props = {
   isDashboard?: boolean;
 };
 export default function OrdersAnalytics({ isDashboard }: Props) {
   const { data, isLoading } = useGetOrdersAnalyticsQuery({});
 
-  useEffect(()=>{},[]);
-
   const analyticsData: any = [];
- // data &&
-   // data.orders.last12Months.forEach((item: any) => {
-     // analyticsData.push({ name: item.name, Count: item.count });
-    //});
+  data &&
+    data.orders.last12Months.forEach((item: any) => {
+      analyticsData.push({ name: item.name, Count: item.count });
+    });
 
   return (
     <>
@@ -91,7 +60,7 @@ export default function OrdersAnalytics({ isDashboard }: Props) {
               <LineChart
                 width={500}
                 height={300}
-                data={analytcdata }
+                data={analyticsData}
                 margin={{
                   top: 5,
                   right: 30,

@@ -16,7 +16,6 @@ const PropertyInformation: FC<Props> = ({
   setActive,
 }) => {
   const [dragging, setDragging] = useState(false);
-
   const { data } = useGetHeroDataQuery("Categories", {});
   const [categories, setCategories] = useState([]);
 
