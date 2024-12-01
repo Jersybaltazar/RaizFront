@@ -15,6 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import socketIO from "socket.io-client";
 import ImageWithCarousel from "../carrousel/Carrousel";
+import { toast } from "react-hot-toast";
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "";
 const socketId = socketIO(ENDPOINT,{transports:["websocket"]});
 
@@ -50,7 +51,12 @@ const PropertieDetails = ({
   const firstImage = data.propertyData[0]?.images[0]?.url;
 
   const handleOrder = (e: any) => {
-    setOpen(true);
+    if (user) {
+      setOpen(true);
+    }else{
+      toast.error("Primero debes de Iniciar Sesión")
+    }
+    
   };
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
@@ -75,13 +81,13 @@ const PropertieDetails = ({
           userId: user._id,
         })
         setOpen(false);
-        alert("Visita agendada con éxito");
+        toast("Visita agendada con éxito");
       } catch (error) {
-        alert("Error agendando la visita");
+        toast.error("Error agendando la visita");
       }
       // Aquí puedes agregar la lógica para guardar la fecha y hora agendada
     } else {
-      alert("Por favor selecciona una fecha y una hora");
+      toast.error("Por favor selecciona una fecha y una hora");
     }
   };
   return (
@@ -212,9 +218,8 @@ const PropertieDetails = ({
             <div className="sticky top-[100px] left-0 z-50 w-full">
             {firstImage && (
                 <ImageWithCarousel 
-                imageSrc={firstImage}
-                  
-                carouselImages={data.propertyData[0]?.images.map((image: any) => image.url)} />
+                imageSrc={firstImage}                  
+                carouselImages={data.propertyData[0]?.images.map((image: any) => image.url)}/>
               )}
               <div className="flex items-center">
                 <h1 className="pt-5 text-[25px] text-black dark:text-white ">
@@ -233,7 +238,7 @@ const PropertieDetails = ({
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/propertie-access/${data._id}`}
                   >
-                    Agendar Visitasss
+                    Verificar Visita
                   </Link>
                 ) : (
                   <div

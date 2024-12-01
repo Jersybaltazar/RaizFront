@@ -46,6 +46,43 @@ export const propertyApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+    getPropertyContent :builder.query({
+      query: (id) => ({
+        url: `getPropertyContent/${id}`,
+        method: "GET",
+        credentials: "include" as const,
+      })
+    }),
+    addNewQuestion:builder.mutation({
+      query:({question, propertyId, contentId})=>({
+        url:"addQuestion",
+        body:{
+          question, propertyId,contentId
+        },
+        method:"PUT",
+        credentials: "include" as const,
+      })
+    }),
+    addAnswerInQuestion:builder.mutation({
+      query:({answer, propertyId, contentId, questionId})=>({
+        url:"addAnswer",
+        body:{
+          answer, propertyId, contentId, questionId
+        },
+        method:"PUT",
+        credentials: "include" as const
+      })
+    }),
+    addReviewInProperty:builder.mutation({
+      query:({review, rating,propertyId} )=>({
+        url:`addReview${propertyId}`,
+        body:{
+          review, rating
+        },
+        method:"PUT",
+        credentials: "include" as const
+      })
+    })
   }),
 });
 
@@ -56,4 +93,8 @@ export const {
   useEditPropertyMutation,
   useGetUsersAllPropertiesQuery,
   useGetPropertieDetailsQuery,
+  useGetPropertyContentQuery,
+  useAddNewQuestionMutation,
+  useAddAnswerInQuestionMutation,
+  useAddReviewInPropertyMutation
 } = propertyApi;

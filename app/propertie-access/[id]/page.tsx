@@ -29,7 +29,7 @@ const Page =   ({params}:Props)=>{
                 <Loader />
             ):(
                 <div>
-                    <PropertieContent  />
+                    <PropertieContent id={id} user={data.user}/>
                 </div>
             )
         }

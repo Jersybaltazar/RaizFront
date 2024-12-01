@@ -3,7 +3,7 @@ import Image from "next/image";
 import { BiSearch } from "react-icons/bi";
 import Link from "next/link";
 import { AnimatedTooltipPreview } from "./AnimatedPerfil";
-import ChatBox from "../ChatBot/ChatBot";
+
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
@@ -59,10 +59,10 @@ const Hero: FC<Props> = (props) => {
           <div className="1000px:w-[40%] flex 1000px:min-h-screen items-center justify-end pt-[70px] 1000px:pt-[0] z-10">
             <Image
               src={data?.layout?.banner?.image?.url}
-              width={500}
+              width={400}
               height={400}
               alt=""
-              className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] h-[auto] z-[1o]"
+              className="object-contain max-w-full h-auto 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] z-[1] rounded-full"
             />
           </div>
           <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-left mt-[150px]">
@@ -108,7 +108,7 @@ const Hero: FC<Props> = (props) => {
             <br />
           </div>
           <div className="absolute bottom-0 right-0 mr-4 mb-4">
-            <ChatBox />
+
           </div>
         </div>
       )}

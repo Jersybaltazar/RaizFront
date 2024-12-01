@@ -7,6 +7,7 @@ import Properties from "./components/Route/Properties";
 import Reviews from "./components/Route/Reviews";
 import FAQ from "./components/Route/FAQ";
 import Footer from "./components/Route/Footer";
+import ChatBox from "../app/components/ChatBot/ChatBot";
 interface Props {}
 
 const Page: FC<Props> = (props) => {
@@ -34,6 +35,7 @@ const Page: FC<Props> = (props) => {
       <Reviews />
       <FAQ />
       <Footer />
+      <ChatBox />
     </div>
   );
 };

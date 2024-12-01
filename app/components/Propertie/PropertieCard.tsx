@@ -54,7 +54,7 @@ const PropertieCard: FC<Props> = ({ item, isProfile }) => {
           <div className="flex items-center pb-3">
             <AiOutlineUnorderedList size={20} fill="#fff" />
             <h5 className="pl-2 text-black dark:text-[#fff] ">
-              {item.courseData?.length}Visitass
+              {item.courseData?.length}Visitas
             </h5>
           </div>
         </div>

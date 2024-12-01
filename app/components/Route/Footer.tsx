@@ -12,7 +12,7 @@ const Footer = (props: Props) => {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div className="space-y-3">
             <h3 className="text-[20px] font-[600] text-black dark:text-white">
-              About
+              Nosotros
             </h3>
             <ul className="space-y-4">
               <li>
@@ -20,7 +20,7 @@ const Footer = (props: Props) => {
                   href="/about"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-white"
                 >
-                  Our Story
+                  Nuestra Historia
                 </Link>
               </li>
               <li>
@@ -36,14 +36,14 @@ const Footer = (props: Props) => {
                   href="/faq"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-white"
                 >
-                  FAQ
+                  PyR
                 </Link>
               </li>
             </ul>
           </div>
           <div className="space-y-3">
             <h3 className="text-[20px] font-[600] text-black dark:text-white">
-              Quick Links
+              Atajos
             </h3>
             <ul>
               <li>
@@ -74,7 +74,7 @@ const Footer = (props: Props) => {
           </div>
           <div className="space-y-3">
             <h3 className="text-[20px] font-[600] text-black dark:text-white">
-              Social Links
+              Redes Sociales
             </h3>
             <ul className="space-y-4">
               <li>
