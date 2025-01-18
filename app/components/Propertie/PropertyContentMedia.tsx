@@ -246,7 +246,7 @@ const PropertyContentMedia = ({
                       Give a Rating <span className="text-red-500">*</span>
                     </h5>
                     <div className="flex w-full ml-2 pb-3">
-                      {[1, 2, , 3, 4, 5].map((i) =>
+                      {[1, 2, 3, 4, 5].map((i) =>
                         rating >= i ? (
                           <AiFillStar
                             key={i}
